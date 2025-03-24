@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . /app
 
 # Gradle 빌드 실행
-RUN ./gradlew clean build --no-daemon --stacktrace
+RUN ./gradlew clean bootJar --no-daemon --stacktrace
 
 # 최종 실행 이미지
 FROM openjdk:17-jdk-slim
