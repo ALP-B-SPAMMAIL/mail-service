@@ -17,14 +17,14 @@ spec:
     spec:
       containers:
         - name: mail-service  # 컨테이너 이름
-          image: myregistry.azurecr.io/mail-service:latest  # 사용할 컨테이너 이미지 (ACR에서 가져옴)
+          image: team04registry.azurecr.io/mail-service:latest  # 사용할 컨테이너 이미지 (ACR에서 가져옴)
           ports:
             - containerPort: 8080
-          envFrom:   # 여기는 환경 변수 설정 -> 나중에 수정하기 
-            - configMapRef:
-                name: mail-service-config
-            - secretRef:
-                name: mail-service-secret
+          # envFrom:   # 여기는 환경 변수 설정 -> 나중에 수정하기 
+          #   - configMapRef:
+          #       name: mail-service-config
+          #   - secretRef:
+          #       name: mail-service-secret
           resources:  # 여기는 리소스 스펙 -> 얘도 나중에 수정
             limits:
               memory: "512Mi"

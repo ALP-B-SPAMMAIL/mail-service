@@ -4,6 +4,7 @@ metadata:
   name: mail-service-ingress
   namespace: mail-namespace
 spec:
+  ingressClassName: nginx
   rules:
     - host: mail-service.kt.com  # 이 도메인으로 들어오는 요청 처리 -> 나중에 변경하기
       http:
