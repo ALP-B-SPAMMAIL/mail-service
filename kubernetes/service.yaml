@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mail-service
+  namespace: mail-namespace
+spec:
+  selector:
+    app: mail-service  # 이 파드랑 연결 
+  ports:
+    - protocol: TCP 
+      port: 82  # 외부 포트 
+      targetPort: 8080  # 내부 포트 
+  type: ClusterIP  # 내부 연결만 -> 인그레스 사용할거니까 
