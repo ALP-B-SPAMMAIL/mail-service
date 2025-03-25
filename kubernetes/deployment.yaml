@@ -25,10 +25,10 @@ spec:
           #       name: mail-service-config
           #   - secretRef:
           #       name: mail-service-secret
-          resources:  # 여기는 리소스 스펙 -> 얘도 나중에 수정
-            limits:
-              memory: "512Mi"
-              cpu: "500m"
-            requests:
-              memory: "256Mi"
-              cpu: "250m"
+          # resources:  # 여기는 리소스 스펙 -> 얘도 나중에 수정
+          #   limits:
+          #     memory: "512Mi"
+          #     cpu: "500m"
+          #   requests:
+          #     memory: "256Mi"
+          #     cpu: "250m"
