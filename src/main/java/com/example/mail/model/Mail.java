@@ -13,7 +13,7 @@ import lombok.*;
 public class Mail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int mailId; 
+    private Integer mailId; 
 
     private int userId;
     
@@ -28,4 +28,20 @@ public class Mail {
     private String mailSummarize;
     private String mailTopic;
     private LocalDateTime whenArrived;
+
+    public void setIsSpam(boolean isSpam) {
+        this.isSpam = isSpam;
+    }
+
+    public void setMailSummarize(String mailSummarize) {
+        this.mailSummarize = mailSummarize;
+    }
+
+    public void setMailTopic(String mailTopic) {
+        this.mailTopic = mailTopic;
+    }
+
+    public boolean getIsSpam() {
+        return this.isSpam;
+    }
 }

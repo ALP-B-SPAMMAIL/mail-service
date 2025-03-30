@@ -52,6 +52,15 @@ public class MailService {
         }
     }
 
+    public boolean tagIsSpamOrNot(int mailId, boolean isSpam) {
+        Mail mail = mailRepository.findById(mailId).orElse(null);
+        if (mail == null) {
+            return false;
+        }
+        mail.setIsSpam(isSpam);
+        mailRepository.save(mail);
+        return mail.getIsSpam();
+    }
 
     private void processMessage(Monitoring monitoring, Message message, List<Mail> emailList) {
         try {
