@@ -12,16 +12,20 @@ import lombok.*;
 @AllArgsConstructor
 public class Mail {
     @Id
-    private int employeeId; 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int mailId; 
 
-    private LocalDateTime lastMailTime;
-    private String protocolType;
-    private String mailServerAddress;
-    private String authority;
-
-    private String mailAddress;
+    private int userId;
     
-    public void setLastMailTime(LocalDateTime lastProcessedMailDate) {
-        this.lastMailTime = lastProcessedMailDate;
-    }
+    @Column(columnDefinition = "TEXT")
+    private String mailContent;  // 텍스트 형식의 메일 내용
+    
+    @Column(columnDefinition = "TEXT")
+    private String mailHtmlContent;  // HTML 형식의 메일 내용
+    
+    private String mailSender;
+    private boolean isSpam;
+    private String mailSummarize;
+    private String mailTopic;
+    private LocalDateTime whenArrived;
 }

@@ -17,16 +17,4 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class MailController {
     private final MailService mailService;
-    
-    @GetMapping("/get-emails")
-    public CompletableFuture<List<String>> getEmails(@RequestParam(name = "userId") int userId) {
-        return mailService.checkEmails(userId);
-    }
-    
-    @GetMapping("/")
-    public String publicEvent(@RequestParam(name = "userId") int userId) {
-        mailService.publishEvent();
-        return "";
-    }
-    
 }
