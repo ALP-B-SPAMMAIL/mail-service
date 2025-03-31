@@ -164,12 +164,13 @@ public class MailService {
                 }
             }
         }
-        if (processedLastDate != null) {
-            LastMailPolledEventDto lastMailPolledEventDto = new LastMailPolledEventDto(
-                monitoringTriggeredEventDto.getUserId(), LocalDateTime.ofInstant(processedLastDate.toInstant(), ZoneId.systemDefault()));
-            LastMailPolledEvent event = new LastMailPolledEvent(lastMailPolledEventDto);
-            kafkaProducer.publish(event);
+        if (processedLastDate == null) {
+            processedLastDate = Date.from(LocalDateTime.now().minusHours(1).atZone(ZoneId.systemDefault()).toInstant());
         }
+        LastMailPolledEventDto lastMailPolledEventDto = new LastMailPolledEventDto(
+            monitoringTriggeredEventDto.getUserId(), LocalDateTime.ofInstant(processedLastDate.toInstant(), ZoneId.systemDefault()));
+        LastMailPolledEvent event = new LastMailPolledEvent(lastMailPolledEventDto);
+        kafkaProducer.publish(event);
         emailFolder.close(false);
         store.close();
         return emails;
