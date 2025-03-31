@@ -10,8 +10,16 @@ import lombok.Data;
 public abstract class AbstractEvent {
     protected String topic;
     private String eventType;
+    
     private AbstractDto payload;
+    
     private Long timestamp;
+
+    // Default constructor for Jackson deserialization
+    public AbstractEvent() {
+        this.eventType = this.getClass().getSimpleName();
+        this.timestamp = Timestamp.valueOf(LocalDateTime.now()).getTime();
+    }
 
     public AbstractEvent(AbstractDto payload) {
         this.payload = payload;
