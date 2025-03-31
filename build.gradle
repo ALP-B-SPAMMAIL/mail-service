@@ -43,7 +43,8 @@ dependencies {
 	// jackson
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     
-
+	// swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 	
 }
 
