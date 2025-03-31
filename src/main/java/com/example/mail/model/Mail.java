@@ -27,7 +27,7 @@ public class Mail {
     private boolean isSpam;
     private String mailSummarize;
     private String mailTopic;
-    private LocalDateTime whenArrived;
+    private LocalDateTime arrivedAt;
 
     public void setIsSpam(boolean isSpam) {
         this.isSpam = isSpam;
