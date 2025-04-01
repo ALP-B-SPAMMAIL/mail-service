@@ -117,62 +117,78 @@ public class MailService {
     private List<Mail> getEmailsFromMailServer(MonitoringTriggeredEventDto monitoringTriggeredEventDto) 
     throws NoSuchProviderException, MessagingException, JsonProcessingException {
         List<Mail> emails = new ArrayList<>();
-        String host = monitoringTriggeredEventDto.getServerAddress();
-        String folderName = "INBOX";
 
-        Properties properties = new Properties();
-        properties.put("mail.store.protocol", monitoringTriggeredEventDto.getProtocolType());
 
-        Session emailSession = Session.getDefaultInstance(properties);
-        Store store = emailSession.getStore(monitoringTriggeredEventDto.getProtocolType());
-        store.connect(host, monitoringTriggeredEventDto.getEmailAddress(), monitoringTriggeredEventDto.getEmailPassword());
-
-        Folder emailFolder = store.getFolder(folderName);
-        emailFolder.open(Folder.READ_WRITE);
-
-        int totalMessages = emailFolder.getMessageCount();
-        int amount = 10;
-        boolean hasMore = true;
         Date processedLastDate = null;
-        for (int i = 0; i < totalMessages / amount + 1 && hasMore; i++) {
-            int start = (int)(totalMessages / amount) == i ? 1 : totalMessages - (i + 1) * amount;
-            int end = totalMessages - i * amount;
 
-            Message[] messages = emailFolder.getMessages(start, end);
-            Arrays.sort(messages, (m1, m2) -> {
-                try {
-                    return m2.getReceivedDate().compareTo(m1.getReceivedDate());
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                }
-                return 0;
-            });
-            for (Message message : messages) {
-                Date internalDate = message.getReceivedDate();
-                
-                // 마지막 처리된 날짜 이후의 메시지만 처리
-                if (monitoringTriggeredEventDto.getLastReadTime() != null && 
-                    (internalDate.before(LDT2Date(monitoringTriggeredEventDto.getLastReadTime())) || internalDate.equals(LDT2Date(monitoringTriggeredEventDto.getLastReadTime())))) {
-                        hasMore = false;
-                        break;
+        // check every field in dto is not null
+        if (monitoringTriggeredEventDto.getServerAddress() != null 
+        && monitoringTriggeredEventDto.getEmailAddress() != null 
+        && monitoringTriggeredEventDto.getEmailPassword() != null 
+        && monitoringTriggeredEventDto.getProtocolType() != null) {        
+            String host = monitoringTriggeredEventDto.getServerAddress();
+            String folderName = "INBOX";
+    
+            Properties properties = new Properties();
+            properties.put("mail.store.protocol", monitoringTriggeredEventDto.getProtocolType());
+    
+            Session emailSession = Session.getDefaultInstance(properties);
+            Store store = emailSession.getStore(monitoringTriggeredEventDto.getProtocolType());
+            store.connect(host, monitoringTriggeredEventDto.getEmailAddress(), monitoringTriggeredEventDto.getEmailPassword());
+    
+            Folder emailFolder = store.getFolder(folderName);
+            emailFolder.open(Folder.READ_WRITE);
+    
+            int totalMessages = emailFolder.getMessageCount();
+            int amount = 10;
+            boolean hasMore = true;
+
+            for (int i = 0; i < totalMessages / amount + 1 && hasMore; i++) {
+                int start = (int)(totalMessages / amount) == i ? 1 : totalMessages - (i + 1) * amount;
+                int end = totalMessages - i * amount;
+    
+                Message[] messages = emailFolder.getMessages(start, end);
+                Arrays.sort(messages, (m1, m2) -> {
+                    try {
+                        return m2.getReceivedDate().compareTo(m1.getReceivedDate());
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
                     }
-
-                // 메시지 처리 로직
-                processMessage(monitoringTriggeredEventDto, message, emails);
-                if (processedLastDate == null || internalDate.after(processedLastDate)) {
-                    processedLastDate = internalDate;
+                    return 0;
+                });
+                for (Message message : messages) {
+                    Date internalDate = message.getReceivedDate();
+                    
+                    // 마지막 처리된 날짜 이후의 메시지만 처리
+                    if (monitoringTriggeredEventDto.getLastReadTime() != null && 
+                        (internalDate.before(LDT2Date(monitoringTriggeredEventDto.getLastReadTime())) 
+                        || internalDate.equals(LDT2Date(monitoringTriggeredEventDto.getLastReadTime())))) {
+                            hasMore = false;
+                            break;
+                        }
+    
+                    // 메시지 처리 로직
+                    processMessage(monitoringTriggeredEventDto, message, emails);
+                    if (processedLastDate == null || internalDate.after(processedLastDate)) {
+                        processedLastDate = internalDate;
+                    }
                 }
             }
+
+            emailFolder.close(false);
+            store.close();
         }
+
+
         if (processedLastDate == null) {
-            processedLastDate = Date.from(LocalDateTime.now().minusHours(1).atZone(ZoneId.systemDefault()).toInstant());
+            LocalDateTime lastReadTime = monitoringTriggeredEventDto.getLastReadTime();
+            processedLastDate = Date.from(lastReadTime.atZone(ZoneId.systemDefault()).toInstant());
         }
         LastMailPolledEventDto lastMailPolledEventDto = new LastMailPolledEventDto(
             monitoringTriggeredEventDto.getUserId(), LocalDateTime.ofInstant(processedLastDate.toInstant(), ZoneId.systemDefault()));
         LastMailPolledEvent event = new LastMailPolledEvent(lastMailPolledEventDto);
         kafkaProducer.publish(event);
-        emailFolder.close(false);
-        store.close();
+
         return emails;
     }
 }
