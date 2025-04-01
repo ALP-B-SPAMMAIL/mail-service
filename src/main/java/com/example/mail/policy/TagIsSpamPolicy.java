@@ -19,7 +19,7 @@ public class TagIsSpamPolicy {
     @Autowired
     private MailService mailService;
 
-    @KafkaListener(topics = "mail", groupId = "spam-mail-tag-is-spam-policy")
+    @KafkaListener(topics = "spam", groupId = "spam-mail-tag-is-spam-policy")
     public void listen(
             @Header(value = "type", required = false) String type,
             @Payload String data

@@ -12,12 +12,12 @@ public class NotSpamDetectedEvent extends AbstractEvent {
 
     public NotSpamDetectedEvent() {
         super();
-        this.topic = "mail";
+        this.topic = "spam";
     }
 
     public NotSpamDetectedEvent(NotSpamDetectedEventDto notSpamDetectedEventDto) {
         super(notSpamDetectedEventDto);
-        this.topic = "mail";
+        this.topic = "spam";
         this.payload = notSpamDetectedEventDto;
     }
 }

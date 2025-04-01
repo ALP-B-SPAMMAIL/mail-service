@@ -17,7 +17,7 @@ public class MonitoringTriggeredPolicy {
     @Autowired
     private MailService mailService;
 
-    @KafkaListener(topics = "mail", groupId = "monitoring-mail-monitoring-triggered-policy")
+    @KafkaListener(topics = "monitoring", groupId = "monitoring-mail-monitoring-triggered-policy")
     public void listen(
             @Header(value = "type", required = false) String type,
             @Payload String data
