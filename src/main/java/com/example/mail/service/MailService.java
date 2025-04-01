@@ -5,13 +5,18 @@ import jakarta.mail.internet.MimeMultipart;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.example.mail.dto.MailReportDto;
 import com.example.mail.event.LastMailPolledEvent;
+import com.example.mail.event.MailChangedToSpamEvent;
 import com.example.mail.event.MailInboundedEvent;
 import com.example.mail.event.MailNotTaggedSpamEvent;
 import com.example.mail.event.MailTaggedSpamEvent;
 import com.example.mail.eventDto.LastMailPolledEventDto;
+import com.example.mail.eventDto.MailChangedToSpamEventDto;
 import com.example.mail.eventDto.MailInboundedEventDto;
 import com.example.mail.eventDto.MailNotTaggedSpamEventDto;
 import com.example.mail.eventDto.MailTaggedSpamEventDto;
@@ -214,27 +219,41 @@ public class MailService {
         return emails;
     }
 
-    public String getMails(int userId) {
-        List<Mail> mails = mailRepository.findAllByUserId(userId);
-        objectMapper.registerModule(new JavaTimeModule());
-        try {
-            System.out.println("getMails: " + mails.size());
-            return objectMapper.writeValueAsString(mails);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Page<Mail> getMails(int userId, int page) {
+        Page<Mail> mails = mailRepository.findAllByUserIdOrderByArrivedAtDesc(userId, PageRequest.of(page, 10));
+        System.out.println("getMails: " + mails.getTotalElements());
+        return mails;
     }
 
-    public String getMailsByIsSpam(int userId, boolean isSpam) {
-        List<Mail> mails = mailRepository.findAllByUserIdAndIsSpam(userId, isSpam);
-        objectMapper.registerModule(new JavaTimeModule());
-        try {
-            return objectMapper.writeValueAsString(mails);  
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
+    public Page<Mail> getMailsByIsSpam(int userId, boolean isSpam, int page) {
+        Page<Mail> mails = mailRepository.findAllByUserIdAndIsSpamOrderByArrivedAtDesc(userId, isSpam, PageRequest.of(page, 10));
+        return mails;
+    }
+
+    @Transactional
+    public int reportMail(int mailId, MailReportDto mailReportDto) throws JsonProcessingException {
+        Mail mail = mailRepository.findById(mailId).orElse(null);
+        if (mail == null) {
+            return -1;
         }
+        mail.setIsSpam(true);
+        mailRepository.save(mail);
+
+        MailChangedToSpamEventDto mailChangedToSpamEventDto = new MailChangedToSpamEventDto(mail, mailReportDto.getReason());
+        MailChangedToSpamEvent mailChangedToSpamEvent = new MailChangedToSpamEvent(mailChangedToSpamEventDto);
+        kafkaProducer.publish(mailChangedToSpamEvent);
+
+        return mailId;
+    }
+
+    @Transactional
+    public int deleteMail(int mailId) {
+        Mail mail = mailRepository.findById(mailId).orElse(null);
+        if (mail == null) {
+            return -1;
+        }
+        mailRepository.delete(mail);
+        return mailId;
     }
 }
 

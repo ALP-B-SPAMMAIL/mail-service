@@ -9,8 +9,10 @@ import lombok.Data;
 @Data
 public class MailChangedToSpamEventDto extends AbstractDto {
     private int mailId;
+    private String reason;
 
-    public MailChangedToSpamEventDto(Mail mail) {  
+    public MailChangedToSpamEventDto(Mail mail, String reason) {  
         this.mailId = mail.getMailId();
+        this.reason = reason;
     }
 }
