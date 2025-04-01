@@ -12,12 +12,10 @@ public class MailTaggedSpamEvent extends AbstractEvent {
     // Default constructor for Jackson deserialization
     public MailTaggedSpamEvent() {
         super();
-        this.topic = "mail";
     }
 
     public MailTaggedSpamEvent(MailTaggedSpamEventDto mailTaggedSpamEventDto) {
         super(mailTaggedSpamEventDto);
-        this.topic = "mail";
         this.payload = mailTaggedSpamEventDto;
     }
 }

@@ -12,12 +12,10 @@ public class SpamDetectedEvent extends AbstractEvent {
 
     public SpamDetectedEvent() {
         super();
-        this.topic = "spam";
     }
 
     public SpamDetectedEvent(SpamDetectedEventDto spamDetectedEventDto) {
         super(spamDetectedEventDto);
-        this.topic = "spam";
         this.payload = spamDetectedEventDto;
     }
 }

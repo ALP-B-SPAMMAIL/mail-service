@@ -20,7 +20,7 @@ public class KafkaProducer {
 
     public void publish(AbstractEvent event) throws JsonProcessingException {
         objectMapper.registerModule(new JavaTimeModule());
-        ProducerRecord<String, String> record = new ProducerRecord<>(event.getTopic(), objectMapper.writeValueAsString(event));
+        ProducerRecord<String, String> record = new ProducerRecord<>("mail", objectMapper.writeValueAsString(event));
         record.headers().add(new RecordHeader("type", event.getEventType().getBytes(StandardCharsets.UTF_8)));
         kafkaTemplate.send(record);
     }

@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.example.mail.event.LastMailPolledEvent;
 import com.example.mail.event.MailInboundedEvent;
+import com.example.mail.event.MailNotTaggedSpamEvent;
+import com.example.mail.event.MailTaggedSpamEvent;
 import com.example.mail.eventDto.LastMailPolledEventDto;
 import com.example.mail.eventDto.MailInboundedEventDto;
+import com.example.mail.eventDto.MailNotTaggedSpamEventDto;
+import com.example.mail.eventDto.MailTaggedSpamEventDto;
 import com.example.mail.eventDto.MonitoringTriggeredEventDto;
 import com.example.mail.kafka.KafkaProducer;
 import com.example.mail.model.Mail;
@@ -53,13 +57,28 @@ public class MailService {
         }
     }
 
-    public boolean tagIsSpamOrNot(int mailId, boolean isSpam) {
+    public boolean tagIsSpamOrNot(int mailId, boolean isSpam) throws JsonProcessingException {
         Mail mail = mailRepository.findById(mailId).orElse(null);
         if (mail == null) {
             return false;
         }
         mail.setIsSpam(isSpam);
         mailRepository.save(mail);
+
+        if (isSpam) {
+            MailTaggedSpamEventDto mailTaggedSpamEventDto = new MailTaggedSpamEventDto();
+            mailTaggedSpamEventDto.setMailId(mailId);
+            mailTaggedSpamEventDto.setMailContent(mail.getMailContent());
+            MailTaggedSpamEvent mailTaggedSpamEvent = new MailTaggedSpamEvent(mailTaggedSpamEventDto);
+            kafkaProducer.publish(mailTaggedSpamEvent);
+        } else {
+            MailNotTaggedSpamEventDto mailNotTaggedSpamEventDto = new MailNotTaggedSpamEventDto();
+            mailNotTaggedSpamEventDto.setMailId(mailId);
+            mailNotTaggedSpamEventDto.setMailContent(mail.getMailContent());
+            MailNotTaggedSpamEvent mailNotTaggedSpamEvent = new MailNotTaggedSpamEvent(mailNotTaggedSpamEventDto);
+            kafkaProducer.publish(mailNotTaggedSpamEvent);
+        }
+
         return mail.getIsSpam();
     }
 
@@ -102,6 +121,7 @@ public class MailService {
                     .mailContent(textContent)
                     .mailHtmlContent(htmlContent)
                     .mailSender(message.getFrom()[0].toString())
+                    .mailTitle(message.getSubject())
                     .isSpam(false)
                     .arrivedAt(receivedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
                     .build();
@@ -198,7 +218,19 @@ public class MailService {
         List<Mail> mails = mailRepository.findAllByUserId(userId);
         objectMapper.registerModule(new JavaTimeModule());
         try {
+            System.out.println("getMails: " + mails.size());
             return objectMapper.writeValueAsString(mails);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getMailsByIsSpam(int userId, boolean isSpam) {
+        List<Mail> mails = mailRepository.findAllByUserIdAndIsSpam(userId, isSpam);
+        objectMapper.registerModule(new JavaTimeModule());
+        try {
+            return objectMapper.writeValueAsString(mails);  
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;

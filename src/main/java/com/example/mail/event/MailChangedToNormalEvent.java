@@ -12,12 +12,10 @@ public class MailChangedToNormalEvent extends AbstractEvent {
     // Default constructor for Jackson deserialization
     public MailChangedToNormalEvent() {
         super();
-        this.topic = "mail";
     }
 
     public MailChangedToNormalEvent(MailChangedToNormalEventDto mailChangedToNormalEventDto) {
         super(mailChangedToNormalEventDto);
-        this.topic = "mail";
         this.payload = mailChangedToNormalEventDto;
     }
 }

@@ -23,4 +23,14 @@ public class MailController {
     public String getMails(@PathVariable int userId) {
         return mailService.getMails(userId);
     }
+
+    @GetMapping("/spams/{userId}")
+    public String getSpams(@PathVariable int userId) {
+        return mailService.getMailsByIsSpam(userId, true);
+    }
+
+    @GetMapping("/normals/{userId}")
+    public String getNormals(@PathVariable int userId) {
+        return mailService.getMailsByIsSpam(userId, false);
+    }
 }

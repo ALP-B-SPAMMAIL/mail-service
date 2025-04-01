@@ -10,4 +10,5 @@ import com.example.mail.model.Mail;
 @Repository
 public interface MailRepository extends JpaRepository<Mail, Integer> {
     List<Mail> findAllByUserId(int userId);
+    List<Mail> findAllByUserIdAndIsSpam(int userId, boolean isSpam);
 } 

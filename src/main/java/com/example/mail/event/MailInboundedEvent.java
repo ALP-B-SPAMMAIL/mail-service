@@ -5,6 +5,5 @@ import com.example.mail.eventDto.MailInboundedEventDto;
 public class MailInboundedEvent extends AbstractEvent {
     public MailInboundedEvent(MailInboundedEventDto mailSentEventDto) {
         super(mailSentEventDto);
-        this.topic = "mail";
     }
 }

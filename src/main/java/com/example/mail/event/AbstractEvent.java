@@ -8,7 +8,6 @@ import com.example.mail.eventDto.AbstractDto;
 import lombok.Data;
 @Data
 public abstract class AbstractEvent {
-    protected String topic;
     private String eventType;
     
     private AbstractDto payload;
