@@ -16,6 +16,8 @@ import com.example.mail.kafka.KafkaProducer;
 import com.example.mail.model.Mail;
 import com.example.mail.repository.MailRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.Properties;
 
@@ -32,7 +34,7 @@ public class MailService {
 
     private final MailRepository mailRepository;
     private final KafkaProducer kafkaProducer;
-
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Transactional
     public void pullEmails(MonitoringTriggeredEventDto monitoringTriggeredEventDto) {
@@ -190,6 +192,17 @@ public class MailService {
         kafkaProducer.publish(event);
 
         return emails;
+    }
+
+    public String getMails(int userId) {
+        List<Mail> mails = mailRepository.findAllByUserId(userId);
+        objectMapper.registerModule(new JavaTimeModule());
+        try {
+            return objectMapper.writeValueAsString(mails);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
 
