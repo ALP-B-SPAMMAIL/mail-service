@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.example.mail.dto.MailReportDto;
 import com.example.mail.event.LastMailPolledEvent;
+import com.example.mail.event.MailChangedToNormalEvent;
 import com.example.mail.event.MailChangedToSpamEvent;
 import com.example.mail.event.MailInboundedEvent;
 import com.example.mail.event.MailNotTaggedSpamEvent;
 import com.example.mail.event.MailTaggedSpamEvent;
 import com.example.mail.eventDto.LastMailPolledEventDto;
+import com.example.mail.eventDto.MailChangedToNormalEventDto;
 import com.example.mail.eventDto.MailChangedToSpamEventDto;
 import com.example.mail.eventDto.MailInboundedEventDto;
 import com.example.mail.eventDto.MailNotTaggedSpamEventDto;
@@ -247,12 +249,16 @@ public class MailService {
     }
 
     @Transactional
-    public int deleteMail(int mailId) {
+    public int deleteMail(int mailId) throws JsonProcessingException {
         Mail mail = mailRepository.findById(mailId).orElse(null);
         if (mail == null) {
             return -1;
         }
         mailRepository.delete(mail);
+        
+        MailChangedToNormalEventDto mailChangedToNormalEventDto = new MailChangedToNormalEventDto(mail);
+        MailChangedToNormalEvent mailChangedToNormalEvent = new MailChangedToNormalEvent(mailChangedToNormalEventDto);
+        kafkaProducer.publish(mailChangedToNormalEvent);
         return mailId;
     }
 }
