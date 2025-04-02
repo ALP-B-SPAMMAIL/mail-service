@@ -5,7 +5,6 @@ import java.util.concurrent.CompletableFuture;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -257,12 +256,12 @@ public class MailService {
     }
 
     public Page<Mail> getMails(int userId, int page) {
-        Page<Mail> mails = mailRepository.findAllByUserIdOrderByArrivedAtDesc(userId, PageRequest.of(page, 10));
+        Page<Mail> mails = mailRepository.findAllByUserIdAndTrashcanAndIsSpamOrderByArrivedAtDesc(userId, false, false, PageRequest.of(page, 10));
         return mails;
     }
 
     public Page<Mail> getMailsByIsSpam(int userId, boolean isSpam, int page) {
-        Page<Mail> mails = mailRepository.findAllByUserIdAndIsSpamOrderByArrivedAtDesc(userId, isSpam, PageRequest.of(page, 10));
+        Page<Mail> mails = mailRepository.findAllByUserIdAndTrashcanAndIsSpamOrderByArrivedAtDesc(userId, false, isSpam, PageRequest.of(page, 10));
         return mails;
     }
 
@@ -352,6 +351,34 @@ public class MailService {
             e.printStackTrace();
             return "fail";
         }
+    }
+
+    @Transactional
+    public int trashcanMail(int mailId) {
+        Mail mail = mailRepository.findById(mailId).orElse(null);
+        if (mail == null) {
+            return -1;
+        }
+        mail.setTrashcan(true);
+        mailRepository.save(mail);
+        return mailId;
+    }
+
+    @Transactional
+    public Page<Mail> getTrashcanMails(int userId, int page) {
+        Page<Mail> mails = mailRepository.findAllByUserIdAndTrashcanOrderByArrivedAtDesc(userId, true, PageRequest.of(page, 10));
+        return mails;
+    }
+
+    @Transactional
+    public int restoreMail(int mailId) {
+        Mail mail = mailRepository.findById(mailId).orElse(null);
+        if (mail == null) {
+            return -1;
+        }
+        mail.setTrashcan(false);
+        mailRepository.save(mail);
+        return mailId;
     }
 }
 

@@ -32,6 +32,8 @@ public class Mail {
     private String mailTitle;
     private LocalDateTime arrivedAt;
 
+    private boolean trashcan;
+
     public void setIsSpam(boolean isSpam) {
         this.isSpam = isSpam;
     }
@@ -46,5 +48,13 @@ public class Mail {
 
     public boolean getIsSpam() {
         return this.isSpam;
+    }
+
+    public boolean getTrashcan() {
+        return this.trashcan;
+    }   
+
+    public void setTrashcan(boolean trashcan) {
+        this.trashcan = trashcan;
     }
 }

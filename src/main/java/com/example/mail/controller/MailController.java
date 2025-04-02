@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,5 +80,29 @@ public class MailController {
     public ResponseEntity<String> sendMail(@RequestBody SendMailDto sendMailDto) throws JsonProcessingException {
         logger.info("Received mail request: {}", objectMapper.writeValueAsString(sendMailDto));
         return ResponseEntity.ok(mailService.sendMail(sendMailDto));
+    }
+
+    @DeleteMapping("/trashcan/{mailId}")
+    public ResponseEntity<Integer> deleteMail(@PathVariable int mailId) {
+        int ret = mailService.trashcanMail(mailId);
+        if (ret == -1) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(-1);
+        }
+        return ResponseEntity.ok(ret);
+    }
+
+    @GetMapping("/trashcan/{userId}")
+    public ResponseEntity<Page<Mail>> getTrashcanMails(@PathVariable int userId, @RequestParam int page) {
+        return ResponseEntity.ok(mailService.getTrashcanMails(userId, page));
+    }
+
+
+    @PatchMapping("/trashcan/{mailId}")
+    public ResponseEntity<Integer> restoreMail(@PathVariable int mailId) {
+        int ret = mailService.restoreMail(mailId);
+        if (ret == -1) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(-1);
+        }
+        return ResponseEntity.ok(ret);
     }
 }

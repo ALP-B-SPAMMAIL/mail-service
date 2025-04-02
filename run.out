@@ -1,0 +1,509 @@
+
+> Task :compileJava
+
+> Task :processResources UP-TO-DATE
+> Task :classes
+> Task :resolveMainClassName
+
+> Task :bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+2025-04-02T15:52:34.166Z  INFO 2542640 --- [mail-service] [           main] com.example.mail.MailApplication         : Starting MailApplication using Java 17.0.14 with PID 2542640 (/home/djlee/projects/k8s/04_deploy_proj/mail-service/build/classes/java/main started by djlee in /home/djlee/projects/k8s/04_deploy_proj/mail-service)
+2025-04-02T15:52:34.168Z  INFO 2542640 --- [mail-service] [           main] com.example.mail.MailApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-04-02T15:52:34.789Z  INFO 2542640 --- [mail-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-04-02T15:52:34.874Z  INFO 2542640 --- [mail-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 80 ms. Found 2 JPA repository interfaces.
+2025-04-02T15:52:35.024Z  INFO 2542640 --- [mail-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=9cb6ee0a-e19d-369d-8090-0c0f97dd2f3f
+2025-04-02T15:52:35.217Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$RetryInterceptorAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$RetryInterceptorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-04-02T15:52:35.220Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.221Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.227Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration' of type [org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.229Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.230Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerClientsDefaultsMappingsProvider' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerDefaultMappingsProviderAutoConfiguration$$Lambda$622/0x000078c628454a10] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.231Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'defaultsBindHandlerAdvisor' of type [org.springframework.cloud.commons.config.DefaultsBindHandlerAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.237Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.cloud.loadbalancer-org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.242Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'default.org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.244Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'default.org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration.LoadBalancerClientSpecification' of type [org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.244Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerClientFactory' of type [org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.249Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'blockingLoadBalancerClient' of type [org.springframework.cloud.loadbalancer.blocking.client.BlockingLoadBalancerClient] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.255Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'appConfig' of type [com.example.mail.config.AppConfig$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.268Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'restTemplate' of type [org.springframework.web.client.RestTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.278Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerServiceInstanceCookieTransformer' of type [org.springframework.cloud.loadbalancer.core.LoadBalancerServiceInstanceCookieTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.279Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'xForwarderHeadersTransformer' of type [org.springframework.cloud.loadbalancer.blocking.XForwardedHeadersTransformer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.280Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.281Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerRequestFactory' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerRequestFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.282Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerRetryConfig' of type [org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerRetryConfig$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.284Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancedRetryFactory' of type [org.springframework.cloud.loadbalancer.blocking.retry.BlockingLoadBalancedRetryFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.286Z  WARN 2542640 --- [mail-service] [           main] trationDelegate$BeanPostProcessorChecker : Bean 'loadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.RetryLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-04-02T15:52:35.440Z  INFO 2542640 --- [mail-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8089 (http)
+2025-04-02T15:52:35.447Z  INFO 2542640 --- [mail-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-04-02T15:52:35.447Z  INFO 2542640 --- [mail-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-04-02T15:52:35.495Z  INFO 2542640 --- [mail-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-04-02T15:52:35.495Z  INFO 2542640 --- [mail-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1297 ms
+2025-04-02T15:52:35.682Z  INFO 2542640 --- [mail-service] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-04-02T15:52:35.717Z  INFO 2542640 --- [mail-service] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2025-04-02T15:52:35.735Z  INFO 2542640 --- [mail-service] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-04-02T15:52:35.855Z  INFO 2542640 --- [mail-service] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-04-02T15:52:35.869Z  WARN 2542640 --- [mail-service] [           main] com.zaxxer.hikari.HikariConfig           : HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+2025-04-02T15:52:35.869Z  INFO 2542640 --- [mail-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-04-02T15:52:36.074Z  INFO 2542640 --- [mail-service] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@72240290
+2025-04-02T15:52:36.075Z  INFO 2542640 --- [mail-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-04-02T15:52:36.104Z  WARN 2542640 --- [mail-service] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-04-02T15:52:36.105Z  WARN 2542640 --- [mail-service] [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-04-02T15:52:36.594Z  INFO 2542640 --- [mail-service] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    alter table mail 
+       add column trashcan bit not null
+2025-04-02T15:52:36.665Z  INFO 2542640 --- [mail-service] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-04-02T15:52:37.641Z  INFO 2542640 --- [mail-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoint(s) beneath base path '/actuator'
+2025-04-02T15:52:37.725Z  INFO 2542640 --- [mail-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8089 (http) with context path ''
+2025-04-02T15:52:37.752Z  INFO 2542640 --- [mail-service] [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = latest
+	bootstrap.servers = [team04kafka.servicebus.windows.net:9093]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-spam-mail-tag-is-spam-policy-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = spam-mail-tag-is-spam-policy
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = [hidden]
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = PLAIN
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = SASL_SSL
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+2025-04-02T15:52:37.830Z  INFO 2542640 --- [mail-service] [           main] o.a.k.c.s.authenticator.AbstractLogin    : Successfully logged in.
+2025-04-02T15:52:37.882Z  INFO 2542640 --- [mail-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.6.0
+2025-04-02T15:52:37.883Z  INFO 2542640 --- [mail-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 60e845626d8a465a
+2025-04-02T15:52:37.883Z  INFO 2542640 --- [mail-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1743609157882
+2025-04-02T15:52:37.890Z  INFO 2542640 --- [mail-service] [           main] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] Subscribed to topic(s): mail
+2025-04-02T15:52:37.896Z  INFO 2542640 --- [mail-service] [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = latest
+	bootstrap.servers = [team04kafka.servicebus.windows.net:9093]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-ai-mail-mail-summarized-2
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = ai-mail-mail-summarized
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = [hidden]
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = PLAIN
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = SASL_SSL
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+2025-04-02T15:52:37.900Z  INFO 2542640 --- [mail-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.6.0
+2025-04-02T15:52:37.900Z  INFO 2542640 --- [mail-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 60e845626d8a465a
+2025-04-02T15:52:37.900Z  INFO 2542640 --- [mail-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1743609157900
+2025-04-02T15:52:37.904Z  INFO 2542640 --- [mail-service] [           main] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] Subscribed to topic(s): mail
+2025-04-02T15:52:37.911Z  INFO 2542640 --- [mail-service] [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.include.jmx.reporter = true
+	auto.offset.reset = latest
+	bootstrap.servers = [team04kafka.servicebus.windows.net:9093]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-monitoring-mail-monitoring-triggered-policy-3
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = monitoring-mail-monitoring-triggered-policy
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = [hidden]
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = PLAIN
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = SASL_SSL
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 45000
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+2025-04-02T15:52:37.914Z  INFO 2542640 --- [mail-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.6.0
+2025-04-02T15:52:37.915Z  INFO 2542640 --- [mail-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 60e845626d8a465a
+2025-04-02T15:52:37.915Z  INFO 2542640 --- [mail-service] [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1743609157914
+2025-04-02T15:52:37.917Z  INFO 2542640 --- [mail-service] [           main] fkaConsumerFactory$ExtendedKafkaConsumer : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] Subscribed to topic(s): mail
+2025-04-02T15:52:37.932Z  INFO 2542640 --- [mail-service] [           main] com.example.mail.MailApplication         : Started MailApplication in 4.046 seconds (process running for 4.257)
+2025-04-02T15:52:38.115Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] Cluster ID: team04kafka.servicebus.windows.net
+2025-04-02T15:52:38.115Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] Cluster ID: team04kafka.servicebus.windows.net
+2025-04-02T15:52:38.115Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] Cluster ID: team04kafka.servicebus.windows.net
+2025-04-02T15:52:38.115Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] Discovered group coordinator team04kafka.servicebus.windows.net:9093 (id: 2147483647 rack: null)
+2025-04-02T15:52:38.115Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] Discovered group coordinator team04kafka.servicebus.windows.net:9093 (id: 2147483647 rack: null)
+2025-04-02T15:52:38.115Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] Discovered group coordinator team04kafka.servicebus.windows.net:9093 (id: 2147483647 rack: null)
+2025-04-02T15:52:38.117Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] (Re-)joining group
+2025-04-02T15:52:38.117Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] (Re-)joining group
+2025-04-02T15:52:38.117Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] (Re-)joining group
+2025-04-02T15:52:41.108Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] Successfully joined group with generation Generation{generationId=42039120, memberId='team04kafka.servicebus.windows.net:c:monitoring-mail-monitoring-triggered-policy:I:consumer-monitoring-mail-monitoring-triggered-policy-3-532dff1794cb4bd09ea72b46b64cea30', protocol='range'}
+2025-04-02T15:52:41.108Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] Successfully joined group with generation Generation{generationId=42039120, memberId='team04kafka.servicebus.windows.net:c:spam-mail-tag-is-spam-policy:I:consumer-spam-mail-tag-is-spam-policy-1-0c6be446d53f481e8ec0a9c49ff918e9', protocol='range'}
+2025-04-02T15:52:41.109Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] Successfully joined group with generation Generation{generationId=42123045, memberId='team04kafka.servicebus.windows.net:c:ai-mail-mail-summarized:I:consumer-ai-mail-mail-summarized-2-363cce7e86b44245824cbc616e739a58', protocol='range'}
+2025-04-02T15:52:41.112Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] Finished assignment for group at generation 42039120: {team04kafka.servicebus.windows.net:c:spam-mail-tag-is-spam-policy:I:consumer-spam-mail-tag-is-spam-policy-1-0c6be446d53f481e8ec0a9c49ff918e9=Assignment(partitions=[mail-0])}
+2025-04-02T15:52:41.112Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] Finished assignment for group at generation 42123045: {team04kafka.servicebus.windows.net:c:ai-mail-mail-summarized:I:consumer-ai-mail-mail-summarized-2-363cce7e86b44245824cbc616e739a58=Assignment(partitions=[mail-0])}
+2025-04-02T15:52:41.112Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] Finished assignment for group at generation 42039120: {team04kafka.servicebus.windows.net:c:monitoring-mail-monitoring-triggered-policy:I:consumer-monitoring-mail-monitoring-triggered-policy-3-532dff1794cb4bd09ea72b46b64cea30=Assignment(partitions=[mail-0])}
+2025-04-02T15:52:41.120Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] Successfully synced group in generation Generation{generationId=42039120, memberId='team04kafka.servicebus.windows.net:c:spam-mail-tag-is-spam-policy:I:consumer-spam-mail-tag-is-spam-policy-1-0c6be446d53f481e8ec0a9c49ff918e9', protocol='range'}
+2025-04-02T15:52:41.120Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] Successfully synced group in generation Generation{generationId=42039120, memberId='team04kafka.servicebus.windows.net:c:monitoring-mail-monitoring-triggered-policy:I:consumer-monitoring-mail-monitoring-triggered-policy-3-532dff1794cb4bd09ea72b46b64cea30', protocol='range'}
+2025-04-02T15:52:41.120Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] Notifying assignor about the new Assignment(partitions=[mail-0])
+2025-04-02T15:52:41.120Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] Notifying assignor about the new Assignment(partitions=[mail-0])
+2025-04-02T15:52:41.122Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] Adding newly assigned partitions: mail-0
+2025-04-02T15:52:41.122Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] Adding newly assigned partitions: mail-0
+2025-04-02T15:52:41.123Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] Successfully synced group in generation Generation{generationId=42123045, memberId='team04kafka.servicebus.windows.net:c:ai-mail-mail-summarized:I:consumer-ai-mail-mail-summarized-2-363cce7e86b44245824cbc616e739a58', protocol='range'}
+2025-04-02T15:52:41.123Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] Notifying assignor about the new Assignment(partitions=[mail-0])
+2025-04-02T15:52:41.123Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] Adding newly assigned partitions: mail-0
+2025-04-02T15:52:41.133Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] Setting offset for partition mail-0 to the committed offset FetchPosition{offset=2355, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[team04kafka.servicebus.windows.net:9093 (id: 0 rack: null)], epoch=absent}}
+2025-04-02T15:52:41.134Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : spam-mail-tag-is-spam-policy: partitions assigned: [mail-0]
+2025-04-02T15:52:41.134Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] Setting offset for partition mail-0 to the committed offset FetchPosition{offset=2355, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[team04kafka.servicebus.windows.net:9093 (id: 0 rack: null)], epoch=absent}}
+2025-04-02T15:52:41.135Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : monitoring-mail-monitoring-triggered-policy: partitions assigned: [mail-0]
+2025-04-02T15:52:41.137Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] Setting offset for partition mail-0 to the committed offset FetchPosition{offset=2355, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[team04kafka.servicebus.windows.net:9093 (id: 0 rack: null)], epoch=absent}}
+2025-04-02T15:52:41.137Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer    : ai-mail-mail-summarized: partitions assigned: [mail-0]
+EVENT RECEIVED: LastMailPolledEvent
+EVENT RECEIVED: MonitoringTriggeredEvent
+2025-04-02T15:52:47.881Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+	acks = -1
+	auto.include.jmx.reporter = true
+	batch.size = 16384
+	bootstrap.servers = [team04kafka.servicebus.windows.net:9093]
+	buffer.memory = 33554432
+	client.dns.lookup = use_all_dns_ips
+	client.id = producer-1
+	compression.type = none
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = true
+	interceptor.classes = []
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metadata.max.idle.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.adaptive.partitioning.enable = true
+	partitioner.availability.timeout.ms = 0
+	partitioner.class = null
+	partitioner.ignore.keys = false
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 3
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = [hidden]
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = PLAIN
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = SASL_SSL
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.apache.kafka.common.serialization.StringSerializer
+
+2025-04-02T15:52:47.886Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=producer-1] Instantiated an idempotent producer.
+2025-04-02T15:52:47.892Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.6.0
+2025-04-02T15:52:47.892Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 60e845626d8a465a
+2025-04-02T15:52:47.892Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1743609167892
+2025-04-02T15:52:47.926Z  INFO 2542640 --- [mail-service] [ad | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Cluster ID: team04kafka.servicebus.windows.net
+2025-04-02T15:52:47.954Z  INFO 2542640 --- [mail-service] [ad | producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=producer-1] ProducerId set to 224 with epoch 0
+EVENT RECEIVED: LastMailPolledEvent
+EVENT RECEIVED: MonitoringTriggeredEvent
+EVENT RECEIVED: LastMailPolledEvent
+EVENT RECEIVED: MonitoringTriggeredEvent
+EVENT RECEIVED: LastMailPolledEvent
+EVENT RECEIVED: MonitoringTriggeredEvent
+2025-04-02T15:53:08.632Z  INFO 2542640 --- [mail-service] [nio-8089-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-02T15:53:08.632Z  INFO 2542640 --- [mail-service] [nio-8089-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-04-02T15:53:08.633Z  INFO 2542640 --- [mail-service] [nio-8089-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-04-02T15:53:08.763Z  WARN 2542640 --- [mail-service] [nio-8089-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; For input string: "favicon.ico"]
+EVENT RECEIVED: LastMailPolledEvent
+EVENT RECEIVED: MonitoringTriggeredEvent
+2025-04-02T15:53:15.826Z  INFO 2542640 --- [mail-service] [nio-8089-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 154 ms
+EVENT RECEIVED: LastMailPolledEvent
+EVENT RECEIVED: MonitoringTriggeredEvent
+EVENT RECEIVED: LastMailPolledEvent
+2025-04-02T16:01:38.529Z  INFO 2542640 --- [mail-service] [ntainer#2-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-spam-mail-tag-is-spam-policy-1, groupId=spam-mail-tag-is-spam-policy] Node -1 disconnected.
+2025-04-02T16:01:38.529Z  INFO 2542640 --- [mail-service] [ntainer#0-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-ai-mail-mail-summarized-2, groupId=ai-mail-mail-summarized] Node -1 disconnected.
+2025-04-02T16:01:38.529Z  INFO 2542640 --- [mail-service] [ntainer#1-0-C-1] org.apache.kafka.clients.NetworkClient   : [Consumer clientId=consumer-monitoring-mail-monitoring-triggered-policy-3, groupId=monitoring-mail-monitoring-triggered-policy] Node -1 disconnected.
+2025-04-02T16:01:48.146Z  INFO 2542640 --- [mail-service] [ad | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node -1 disconnected.
