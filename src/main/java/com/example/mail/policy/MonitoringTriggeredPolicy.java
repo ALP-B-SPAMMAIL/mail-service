@@ -25,7 +25,6 @@ public class MonitoringTriggeredPolicy {
         objectMapper.registerModule(new JavaTimeModule());
         if (type != null && type.equals("MonitoringTriggeredEvent")) {
             try {
-                System.out.println("MonitoringTriggeredEvent Received");
                 MonitoringTriggeredEvent event = objectMapper.readValue(data, MonitoringTriggeredEvent.class);
                 MonitoringTriggeredEventDto payload = event.getPayload();
                 if (payload != null) {

@@ -1,8 +1,3 @@
-az acr login --name team04registry
-
-if [ -z "$1" ]; then
-    echo "Image Tag Version need in arg1"
-else
-    docker build -t team04registry.azurecr.io/mail-service:$1 .
-    docker push team04registry.azurecr.io/mail-service:$1
-fi
+docker build -t team04registry.azurecr.io/mail-service:latest .
+docker push team04registry.azurecr.io/mail-service:latest
+kubectl rollout restart deployment mail-service

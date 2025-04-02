@@ -16,6 +16,7 @@ public class MailInboundedEventDto extends AbstractDto {
     public MailInboundedEventDto(Mail mail) {  
         this.mailId = mail.getMailId();
         this.mailContent = mail.getMailContent();
+        System.out.println("EVENT mailContent: " + mailContent);
         this.mailSender = mail.getMailSender();
         this.mailArrivalTime = mail.getArrivedAt();
     }

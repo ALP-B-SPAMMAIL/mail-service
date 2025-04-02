@@ -25,6 +25,7 @@ public class TagIsSpamPolicy {
             @Payload String data
     ) {
         objectMapper.registerModule(new JavaTimeModule());
+        System.out.println("EVENT RECEIVED: " + type);
         if (type != null && (type.equals("NotSpamDetectedEvent") || type.equals("SpamDetectedEvent"))) {
             try {
                 int mailId = -1;
