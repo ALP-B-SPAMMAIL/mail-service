@@ -63,4 +63,9 @@ public class MailController {
         }
         return ResponseEntity.ok(ret);
     }
+
+    @GetMapping("/{mailId}/summary")
+    public ResponseEntity<String> getMailSummary(@PathVariable int mailId) {
+        return ResponseEntity.ok(mailService.getMailSummary(mailId));
+    }
 }

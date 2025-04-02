@@ -21,6 +21,7 @@ import com.example.mail.eventDto.MailChangedToNormalEventDto;
 import com.example.mail.eventDto.MailChangedToSpamEventDto;
 import com.example.mail.eventDto.MailInboundedEventDto;
 import com.example.mail.eventDto.MailNotTaggedSpamEventDto;
+import com.example.mail.eventDto.MailSummarizedEventDto;
 import com.example.mail.eventDto.MailTaggedSpamEventDto;
 import com.example.mail.eventDto.MonitoringTriggeredEventDto;
 import com.example.mail.kafka.KafkaProducer;
@@ -48,10 +49,9 @@ public class MailService {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Transactional
-    public void pullEmails(MonitoringTriggeredEventDto monitoringTriggeredEventDto) {
+    private void publishMailInboundedEvent(List<Mail> emails, MonitoringTriggeredEventDto monitoringTriggeredEventDto) {
         try {
             if (monitoringTriggeredEventDto == null) return;
-            List<Mail> emails = getEmailsFromMailServer(monitoringTriggeredEventDto);
             for (Mail email : emails) {
                 mailRepository.save(email);
                 MailInboundedEventDto mailInboundedEventDto = new MailInboundedEventDto(email);
@@ -64,6 +64,7 @@ public class MailService {
         }
     }
 
+    @Transactional
     public boolean tagIsSpamOrNot(int mailId, boolean isSpam) throws JsonProcessingException {
         Mail mail = mailRepository.findById(mailId).orElse(null);
         if (mail == null) {
@@ -89,7 +90,7 @@ public class MailService {
         return mail.getIsSpam();
     }
 
-    private void processMessage(MonitoringTriggeredEventDto monitoringTriggeredEventDto, Message message, List<Mail> emailList) {
+    private void addMessageToMailList(MonitoringTriggeredEventDto monitoringTriggeredEventDto, Message message, List<Mail> emailList) {
         try {
             // Parsing Content
             String textContent = "";
@@ -143,7 +144,7 @@ public class MailService {
         return java.sql.Timestamp.valueOf(ldt);
     }
 
-    private List<Mail> getEmailsFromMailServer(MonitoringTriggeredEventDto monitoringTriggeredEventDto) 
+    public void getEmailsFromMailServer(MonitoringTriggeredEventDto monitoringTriggeredEventDto) 
     throws NoSuchProviderException, MessagingException, JsonProcessingException {
         List<Mail> emails = new ArrayList<>();
 
@@ -173,7 +174,7 @@ public class MailService {
             boolean hasMore = true;
 
             for (int i = 0; i < totalMessages / amount + 1 && hasMore; i++) {
-                int start = (int)(totalMessages / amount) == i ? 1 : totalMessages - (i + 1) * amount;
+                int start = (int)(totalMessages / amount) == i ? 1 : totalMessages - (i + 1) * amount + 1;
                 int end = totalMessages - i * amount;
     
                 Message[] messages = emailFolder.getMessages(start, end);
@@ -196,8 +197,8 @@ public class MailService {
                             break;
                         }
     
-                    // 메시지 처리 로직
-                    processMessage(monitoringTriggeredEventDto, message, emails);
+                    // Message 객체를 Mail 객체로 변환하여 리스트에 추가
+                    addMessageToMailList(monitoringTriggeredEventDto, message, emails);
                     if (processedLastDate == null || internalDate.after(processedLastDate)) {
                         processedLastDate = internalDate;
                     }
@@ -208,7 +209,7 @@ public class MailService {
             store.close();
         }
 
-
+        publishMailInboundedEvent(emails, monitoringTriggeredEventDto);
         if (processedLastDate == null) {
             LocalDateTime lastReadTime = monitoringTriggeredEventDto.getLastReadTime();
             processedLastDate = Date.from(lastReadTime.atZone(ZoneId.systemDefault()).toInstant());
@@ -218,12 +219,11 @@ public class MailService {
         LastMailPolledEvent event = new LastMailPolledEvent(lastMailPolledEventDto);
         kafkaProducer.publish(event);
 
-        return emails;
+        return;
     }
 
     public Page<Mail> getMails(int userId, int page) {
         Page<Mail> mails = mailRepository.findAllByUserIdOrderByArrivedAtDesc(userId, PageRequest.of(page, 10));
-        System.out.println("getMails: " + mails.getTotalElements());
         return mails;
     }
 
@@ -261,6 +261,25 @@ public class MailService {
         MailChangedToNormalEvent mailChangedToNormalEvent = new MailChangedToNormalEvent(mailChangedToNormalEventDto);
         kafkaProducer.publish(mailChangedToNormalEvent);
         return mailId;
+    }
+
+    @Transactional
+    public int assignMailSummary(MailSummarizedEventDto mailSummarizedEventDto) {
+        Mail mail = mailRepository.findById(mailSummarizedEventDto.getMailId()).orElse(null);
+        if (mail == null) {
+            return -1;
+        }
+        mail.setMailSummarize(mailSummarizedEventDto.getSummary());
+        mailRepository.save(mail);
+        return mailSummarizedEventDto.getMailId();
+    }
+
+    public String getMailSummary(int mailId) {
+        Mail mail = mailRepository.findById(mailId).orElse(null);
+        if (mail == null) {
+            return null;
+        }
+        return mail.getMailSummarize();
     }
 }
 
