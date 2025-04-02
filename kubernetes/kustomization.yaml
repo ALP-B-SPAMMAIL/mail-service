@@ -1,8 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization    # 묶어서 관리하기 
-namespace: mail-namespace
-resources:
-  - mail-service/deployment.yaml
-  - mail-service/service.yaml
-  - mail-service/ingress.yaml
-  - namespace.yaml

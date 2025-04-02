@@ -1,0 +1,66 @@
+server:
+  port: 8080
+  tomcat:
+    remote-ip-header: X-Forwarded-For
+    protocol-header: X-Forwarded-Proto
+    server-header: Apache
+    internal-proxies: 127.0.0.1|::1
+    use-relative-redirects: true
+    
+spring:
+  application:
+    name: mail-service
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://team04db.privatelink.mysql.database.azure.com:3306/team04db
+    username: team04
+    password: tkwh04&*
+    hikari:
+      maximum-pool-size: 10  # 최대 연결 수 설정
+      idle-timeout: 60000  # 유휴 연결 시간 (밀리초)
+      connection-timeout: 30000  # 연결 타임아웃 시간 (밀리초)
+      max-lifetime: 600000  # 최대 수명 설정 (밀리초)
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      default_schema: team04db
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+
+  kafka:
+    bootstrap-servers: team04kafka.servicebus.windows.net:9093
+    properties:
+      security.protocol: SASL_SSL
+      sasl.mechanism: PLAIN
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://team04kafka.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=oZQML3wi3sMJa/ZgW0ZOJL6O/cFVm3hon+AEhKiWuO0=";
+    producer:
+      retries: 3
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: true
+        all-namespaces: true
+
+jwt:
+  secret-key: 746eb321f66decf700ec35fe26d1261a33fae888cedceef2955ccf2374ff10638d3f2612cb462a68a0601dea3512ba28d452c70eaf2aefda802bac4d75c8709f
+  issuer: team04
+  access-token-expiration: 3600000 # 1시간
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, env, prometheus
+
+logging:
+ level:
+   root: debug

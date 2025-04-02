@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mail-service   # deployment 이름 
-  namespace: mail-namespace
   labels:
     app: mail-service  # Deployment에 app=member-service 라벨 추가 (서비스와 매칭될 때 사용)
 spec:
@@ -20,15 +19,3 @@ spec:
           image: team04registry.azurecr.io/mail-service:latest  # 사용할 컨테이너 이미지 (ACR에서 가져옴)
           ports:
             - containerPort: 8080
-          # envFrom:   # 여기는 환경 변수 설정 -> 나중에 수정하기 
-          #   - configMapRef:
-          #       name: mail-service-config
-          #   - secretRef:
-          #       name: mail-service-secret
-          # resources:  # 여기는 리소스 스펙 -> 얘도 나중에 수정
-          #   limits:
-          #     memory: "512Mi"
-          #     cpu: "500m"
-          #   requests:
-          #     memory: "256Mi"
-          #     cpu: "250m"

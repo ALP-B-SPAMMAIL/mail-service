@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.4'
+	id 'org.springframework.boot' version '3.2.4'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -36,6 +36,22 @@ dependencies {
 
 	// actuator 정의
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	implementation 'org.springframework.boot:spring-boot-configuration-processor' // Spring Boot Configuration Processor
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+	// ✅ Spring Cloud LoadBalancer
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+
+    // ✅ Spring Cloud Kubernetes
+    implementation 'org.springframework.cloud:spring-cloud-starter-kubernetes-client-all'
+	//implementation("org.springframework.boot:spring-boot-starter-security")
+
+	implementation platform("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
+
+	implementation 'org.springframework.kafka:spring-kafka'
 
 	// java mail
 	implementation 'org.eclipse.angus:jakarta.mail:2.0.1'
