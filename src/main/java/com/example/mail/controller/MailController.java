@@ -57,7 +57,7 @@ public class MailController {
     
     @DeleteMapping("/spams/{mailId}")
     public ResponseEntity<Integer> deleteSpam(@PathVariable int mailId) throws JsonProcessingException {
-        int ret = mailService.deleteMail(mailId);
+        int ret = mailService.deleteMailReportance(mailId);
         if (ret == -1) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(-1);
         }

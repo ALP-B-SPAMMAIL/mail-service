@@ -17,10 +17,10 @@ public class Mail {
 
     private int userId;
     
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String mailContent;  // 텍스트 형식의 메일 내용
     
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String mailHtmlContent;  // HTML 형식의 메일 내용
     
     private String mailSender;

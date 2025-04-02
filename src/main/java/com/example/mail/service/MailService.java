@@ -249,12 +249,13 @@ public class MailService {
     }
 
     @Transactional
-    public int deleteMail(int mailId) throws JsonProcessingException {
+    public int deleteMailReportance(int mailId) throws JsonProcessingException {
         Mail mail = mailRepository.findById(mailId).orElse(null);
         if (mail == null) {
             return -1;
         }
-        mailRepository.delete(mail);
+        mail.setIsSpam(false);
+        mailRepository.save(mail);
         
         MailChangedToNormalEventDto mailChangedToNormalEventDto = new MailChangedToNormalEventDto(mail);
         MailChangedToNormalEvent mailChangedToNormalEvent = new MailChangedToNormalEvent(mailChangedToNormalEventDto);
