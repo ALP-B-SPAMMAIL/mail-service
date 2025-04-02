@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mail-service  # Deployment에 app=member-service 라벨 추가 (서비스와 매칭될 때 사용)
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: mail-service  # 이 Deployment가 관리할 Pod들의 라벨 지정 (Pod template의 labels와 일치해야 함)

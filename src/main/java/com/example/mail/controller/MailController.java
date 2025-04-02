@@ -1,6 +1,9 @@
 package com.example.mail.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.example.mail.dto.MailReportDto;
 import com.example.mail.model.Mail;
@@ -27,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class MailController {
     private final MailService mailService;
+    private static final Logger logger = LoggerFactory.getLogger(MailController.class);
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping("/{userId}")
     public ResponseEntity<Page<Mail>> getMails(@PathVariable int userId, @RequestParam int page) {
@@ -43,12 +48,12 @@ public class MailController {
         return mailService.getMailsByIsSpam(userId, false, page);
     }
 
-    @PostMapping("/{mailId}/report") 
+    @GetMapping("/report") 
     public ResponseEntity<Integer> reportMail(
-        @PathVariable int mailId,
-        @RequestBody MailReportDto mailReportDto
+        @RequestParam int mailId,
+        @RequestParam String reason
     ) throws JsonProcessingException {
-        int ret = mailService.reportMail(mailId, mailReportDto);
+        int ret = mailService.reportMail(mailId, reason);
         if (ret == -1) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(-1);
         }

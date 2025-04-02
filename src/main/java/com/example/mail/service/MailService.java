@@ -31,6 +31,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Properties;
 
 import java.util.Date;
@@ -47,6 +50,7 @@ public class MailService {
     private final MailRepository mailRepository;
     private final KafkaProducer kafkaProducer;
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final Logger logger = LoggerFactory.getLogger(MailService.class);
 
     @Transactional
     private void publishMailInboundedEvent(List<Mail> emails, MonitoringTriggeredEventDto monitoringTriggeredEventDto) {
@@ -244,7 +248,7 @@ public class MailService {
     }
 
     @Transactional
-    public int reportMail(int mailId, MailReportDto mailReportDto) throws JsonProcessingException {
+    public int reportMail(int mailId, String reason) throws JsonProcessingException {
         Mail mail = mailRepository.findById(mailId).orElse(null);
         if (mail == null) {
             return -1;
@@ -252,7 +256,8 @@ public class MailService {
         mail.setIsSpam(true);
         mailRepository.save(mail);
 
-        MailChangedToSpamEventDto mailChangedToSpamEventDto = new MailChangedToSpamEventDto(mail, mailReportDto.getReason());
+        logger.info("REPORT MAIL IN SERVICE: {}", reason);
+        MailChangedToSpamEventDto mailChangedToSpamEventDto = new MailChangedToSpamEventDto(mail, reason);
         MailChangedToSpamEvent mailChangedToSpamEvent = new MailChangedToSpamEvent(mailChangedToSpamEventDto);
         kafkaProducer.publish(mailChangedToSpamEvent);
 
@@ -266,6 +271,7 @@ public class MailService {
             return -1;
         }
         mail.setIsSpam(false);
+        
         mailRepository.save(mail);
         
         MailChangedToNormalEventDto mailChangedToNormalEventDto = new MailChangedToNormalEventDto(mail);
