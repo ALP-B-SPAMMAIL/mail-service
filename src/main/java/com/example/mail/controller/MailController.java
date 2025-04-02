@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.example.mail.dto.MailReportDto;
+import com.example.mail.dto.SendMailDto;
 import com.example.mail.model.Mail;
 import com.example.mail.service.MailService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -72,5 +73,11 @@ public class MailController {
     @GetMapping("/{mailId}/summary")
     public ResponseEntity<String> getMailSummary(@PathVariable int mailId) {
         return ResponseEntity.ok(mailService.getMailSummary(mailId));
+    }
+
+    @PostMapping("/send")
+    public ResponseEntity<String> sendMail(@RequestBody SendMailDto sendMailDto) throws JsonProcessingException {
+        logger.info("Received mail request: {}", objectMapper.writeValueAsString(sendMailDto));
+        return ResponseEntity.ok(mailService.sendMail(sendMailDto));
     }
 }

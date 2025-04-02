@@ -1,15 +1,50 @@
 package com.example.mail.service;
 
-import jakarta.mail.*;
-import jakarta.mail.internet.MimeMultipart;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.example.mail.eventDto.MailChangedToSpamEventDto;
 import com.example.mail.dto.MailReportDto;
+import com.example.mail.dto.SendMailDto;
+import com.example.mail.model.Mail;
+import com.example.mail.model.Monitoring;
+import com.example.mail.repository.MailRepository;
+import com.example.mail.repository.MonitorRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import jakarta.mail.Authenticator;
+import jakarta.mail.BodyPart;
+import jakarta.mail.Folder;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.NoSuchProviderException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import lombok.RequiredArgsConstructor;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Arrays;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+
 import com.example.mail.event.LastMailPolledEvent;
 import com.example.mail.event.MailChangedToNormalEvent;
 import com.example.mail.event.MailChangedToSpamEvent;
@@ -25,23 +60,6 @@ import com.example.mail.eventDto.MailSummarizedEventDto;
 import com.example.mail.eventDto.MailTaggedSpamEventDto;
 import com.example.mail.eventDto.MonitoringTriggeredEventDto;
 import com.example.mail.kafka.KafkaProducer;
-import com.example.mail.model.Mail;
-import com.example.mail.repository.MailRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Properties;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Arrays;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +67,7 @@ public class MailService {
 
     private final MailRepository mailRepository;
     private final KafkaProducer kafkaProducer;
+    private final MonitorRepository monitorRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private static final Logger logger = LoggerFactory.getLogger(MailService.class);
 
@@ -297,6 +316,42 @@ public class MailService {
             return null;
         }
         return mail.getMailSummarize();
+    }
+
+    public String sendMail(SendMailDto sendMailDto) {
+        Monitoring monitoring = monitorRepository.findById(sendMailDto.getFromUserId()).orElse(null);
+        if (monitoring == null) {
+            return null;
+        }
+
+        String username = monitoring.getEmailAddress();
+        String password = monitoring.getEmailPassword();
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(sendMailDto.getTo()));
+            message.setSubject(sendMailDto.getSubject());
+            message.setText(sendMailDto.getContent());
+
+            Transport.send(message);
+            return "success";
+        } catch (Exception e) { 
+            e.printStackTrace();
+            return "fail";
+        }
     }
 }
 
